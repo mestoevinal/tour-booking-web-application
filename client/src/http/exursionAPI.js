@@ -7,32 +7,15 @@ export const createExursion = async (Exursion) => {
 }
 
 export const fetchExursioncityId = async (cityId) => {
-    const {data} = await $authHost.get('api/exursion', {
-        params: {
-            cityId
-        }
-    })
+    const {data} = await $authHost.get(`api/exursion/${cityId}`)
     return data
 }
 
 export const fetchExursionId = async (id) => {
-    const {data} = await $authHost.get('api/exursion', {
-        params: {
-            id
-        }
-    })
+    const {data} = await $authHost.get(`api/exursion/exid/${id}`)
     return data
 }
 
-export const deleteExursion = async (id, date = 0) => {
-    if (id) {
-        await $authHost.delete('api/exursion', {
-            params: {
-                id
-            }
-        })
-    }
-    if (date){
-        await $authHost.delete('api/exursion', {})
-    }
+export const deleteExursion = async (id) => {
+    await $authHost.delete(`api/exursion/${id}`)
 }

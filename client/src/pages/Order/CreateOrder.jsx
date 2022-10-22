@@ -12,7 +12,7 @@ const MailDiv = styled.div`
   color: red;
 `
 
-const CreateOrder = observer((props) => {
+const CreateOrder = (props) => {
     const {user} = useContext(Context)
     const history = useHistory()
     const email = useInput('', {isEmpty: true, minLength: 3, emailError: true})
@@ -37,7 +37,8 @@ const CreateOrder = observer((props) => {
                 onChange={e => email.onChange(e)}
                 onBlur={e => email.onBlur(e)}
             />
-            {(fullDescription.isDirty && fullDescription.isEmpty) && <MailDiv style={{color: "red"}}>{fullDescription.errorMessage}</MailDiv>}
+            {(fullDescription.isDirty && fullDescription.isEmpty) &&
+                <MailDiv style={{color: "red"}}>{fullDescription.errorMessage}</MailDiv>}
             <div>Введите ФИО</div>
             <MyInput
                 type="text"
@@ -52,7 +53,7 @@ const CreateOrder = observer((props) => {
                 Записаться
             </MyButton>
         </form>
-    );
-});
+    )
+}
 
 export default CreateOrder;

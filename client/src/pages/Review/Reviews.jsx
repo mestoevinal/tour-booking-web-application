@@ -1,12 +1,11 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import styled from "styled-components";
 import MyButton from "../../UI/MyButton/MyButton";
-import {useHistory, useLocation} from "react-router-dom";
 import {AiOutlineUser} from "react-icons/ai";
 import {Context} from "../../index";
-import {createOtziv, fetchOtzivsOneExursion} from "../../http/otziviAPI";
-import {observer} from "mobx-react-lite";
+import {createOtziv, fetchOtzivsOneExursion} from "../../http/reviewAPI";
 import useInput from "../../hooks/useInput";
+import ReviewCard from "./ReviewCard";
 
 const Comments = styled.div`
   line-height: 1.3;
@@ -92,10 +91,6 @@ const ContainerTextArea = styled.div`
   color: #2f3235;
   box-sizing: border-box;
   position: relative;
-<<<<<<< HEAD
-=======
-
->>>>>>> c8b62bc75b904543e2d22533d581b41d98a42242
 `
 const TextArea = styled.textarea`
   box-sizing: border-box;
@@ -119,85 +114,79 @@ const TextArea = styled.textarea`
 
 const Button = styled(MyButton)`
   background: #827ffe;
-<<<<<<< HEAD
-=======
-
->>>>>>> c8b62bc75b904543e2d22533d581b41d98a42242
   :hover {
     filter: brightness(0.6);
   }
 `
 
 
-const CreateOtziv = observer(({title, id}) => {
-<<<<<<< HEAD
+const Reviews = ({title, id}) => {
     const ref = useRef()
-    const {otzivStore} = useContext(Context)
     const {user} = useContext(Context)
-    useEffect(() => {
-        fetchOtzivsOneExursion(id).then(data     => otzivStore.setOtzivsOneExursion(data))
-    }, [])
     const description = useInput('', {isEmpty: true})
+    const [otzivs, setOtzivs] = useState([])
 
-=======
-    const router = useHistory()
-    const ref = useRef()
-    const {otzivStore} = useContext(Context)
-    const {user} = useContext(Context)
-    const location = useLocation()
     useEffect(() => {
-        fetchOtzivsOneExursion(id).then(data     => otzivStore.setOtzivsOneExursion(data))
+        fetchOtzivsOneExursion(id)
+            .then(data => setOtzivs(data))
     }, [])
 
-    const description = useInput('', {isEmpty: true})
-    let name = 'mestoevinal'
->>>>>>> c8b62bc75b904543e2d22533d581b41d98a42242
     const addOtziv = async (en) => {
         try {
             en.preventDefault()
-
             await createOtziv({description: description.value, exursionId: id, username: user.User.username})
                 .then(() => {
+                    setOtzivs([
+                        ...otzivs,
+                        {description: description.value, exursionId: id, username: user.User.username}
+                    ])
                     description.value = ""
                     ref.current.value = ''
-                    fetchOtzivsOneExursion(id).then(data => otzivStore.setOtzivsOneExursion(data))
                 })
         } catch (e) {
             alert(e)
         }
     }
-    return (
-        <Comments>
-            <Header>
-                <H2>Отзывы
-                    <Span>
-                        о выставке "{title}"
-                    </Span>
-                </H2>
-            </Header>
-            <Container>
-                <ProfileImg>
-                    <UserProfileImg>
-                        <UserIcon/>
-                    </UserProfileImg>
-                </ProfileImg>
-                <ContainerTextArea>
-                    <TextArea
-                        ref={ref}
-                        value={description.value}
-                        onChange={e => description.onChange(e)}
-                        onBlur={e => description.onBlur(e)}
-                    />
-                </ContainerTextArea>
-                <Button
-                    disabled={!description.inputValid}
-                    onClick={addOtziv}
-                >
-                    Отправить
-                </Button>
-            </Container>
-        </Comments>
-    );
-});
 
-export default CreateOtziv;
+    return (
+        <div>
+            <Comments>
+                <Header>
+                    <H2>Отзывы
+                        <Span>
+                            о выставке "{title}"
+                        </Span>
+                    </H2>
+                </Header>
+                <Container>
+                    <ProfileImg>
+                        <UserProfileImg>
+                            <UserIcon/>
+                        </UserProfileImg>
+                    </ProfileImg>
+                    <ContainerTextArea>
+                        <TextArea
+                            ref={ref}
+                            value={description.value}
+                            onChange={e => description.onChange(e)}
+                            onBlur={e => description.onBlur(e)}
+                        />
+                    </ContainerTextArea>
+                    <Button
+                        disabled={!description.inputValid}
+                        onClick={addOtziv}
+                    >
+                        Отправить
+                    </Button>
+                </Container>
+            </Comments>
+
+            {otzivs.map(otziv =>
+                <ReviewCard key={otziv.id} otziv={otziv}/>
+            )}
+        </div>
+
+    )
+}
+
+export default Reviews;

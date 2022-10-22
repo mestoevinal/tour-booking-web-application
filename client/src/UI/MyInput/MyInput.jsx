@@ -11,6 +11,7 @@ const Input = styled.input`
   height: 40px;
   padding: 0px 20px;
   font-size: 16px;
+  outline: none;
 `
 
 const MyInput = React.forwardRef((props, ref) => {

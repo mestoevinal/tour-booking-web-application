@@ -34,22 +34,23 @@ class ExursionController {
     }
 
     async getAll(req, res) {
-        let {cityId, id} = req.query
-        if (cityId) {
-            const exur = await Exursion.findAll({
-                where: {
-                    cityId,
-                    date: {
-                        [Op.gte]: new Date()
-                    }
+        console.log('job')
+        let {cityId} = req.params
+        const exur = await Exursion.findAll({
+            where: {
+                cityId,
+                date: {
+                    [Op.gte]: new Date()
                 }
-            })
-            return res.json(exur)
-        }
-        if (id) {
-            const exur = await Exursion.findOne({where: {id}})
-            return res.json(exur)
-        }
+            }
+        })
+        return res.json(exur)
+    }
+
+    async getIdExursion(req, res) {
+        let {id} = req.params
+        const exur = await Exursion.findAll({where: {id}})
+        return res.json(exur)
     }
 
     async deleteExur(req, res) {

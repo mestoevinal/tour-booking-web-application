@@ -173,7 +173,7 @@ const ProfileUserImg = styled.div`
   box-shadow: 0 1px 3px rgba(0, 40, 60, .2);
 `
 
-const OtzivCard = observer((props) => {
+const ReviewCard = observer((props) => {
 
     return (
         <Container>
@@ -193,11 +193,7 @@ const OtzivCard = observer((props) => {
                     </Author>
                     <Time>
                         <TimeLink to="">
-<<<<<<< HEAD
                             {moment(props.otziv.createdAt).format('D MMMM  в HH:MM')}
-=======
-                            {moment(props.otziv.createdAt).format('DD MMMM  в HH:MM')}
->>>>>>> c8b62bc75b904543e2d22533d581b41d98a42242
                         </TimeLink>
                     </Time>
                 </Header>
@@ -213,4 +209,4 @@ const OtzivCard = observer((props) => {
     );
 });
 
-export default OtzivCard;
+export default ReviewCard;

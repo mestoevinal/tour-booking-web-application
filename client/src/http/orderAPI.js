@@ -1,4 +1,4 @@
-import {$authHost, $host} from "./index";
+import {$authHost} from "./index";
 
 export const createOrder = async (Order) => {
     const {data} = await $authHost.post('api/order', Order)

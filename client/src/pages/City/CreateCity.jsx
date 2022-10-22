@@ -13,13 +13,9 @@ const Form = styled.form`
   margin-top: 10px;  
 `
 
-
 const CreateCity = observer(() => {
     const [file, setFile] = useState(0)
-<<<<<<< HEAD:client/src/pages/City/CreateCity.jsx
     const history = useHistory()
-=======
->>>>>>> c8b62bc75b904543e2d22533d581b41d98a42242:client/src/pages/Create/CreateCity.jsx
     const name = useInput('', {isEmpty: true, minLength:3, maxLength:15})
     const selectFile = e => setFile(e.target.files[0])
     const addCity = async (e) => {
@@ -29,7 +25,7 @@ const CreateCity = observer(() => {
             formData.append('name', name.value.toUpperCase())
             formData.append('img', file)
             createCity(formData)
-                .then(data => {
+                .then(() => {
                     setFile(null)
                     alert("Новый город для экскурсий успешно создан")
                     history.push('/CityList')

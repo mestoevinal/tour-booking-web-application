@@ -33,18 +33,24 @@ const Date = styled.div`
 `
 
 
-const OrderCard = ({exid ,i}) => {
+const OrderCard = observer(({order}) => {
     const [object, setObject] = useState({})
     useEffect(() => {
-      fetchExursionId(exid).then(data => setObject(data))
+      fetchExursionId(order.exursionId).then(data => setObject(...data))
     }, [])
     return (
         <div>
             <strong>{object.name}</strong>
-            <Description>{object.description}</Description>
-            <Date>{moment(object.date).format('DD MMMM  в HH:mm')}</Date>
+            <Description>
+                {object.description} <br/> <br/>
+                <strong>Почта пользователя: </strong>{order.email} <br/>
+                <strong>Имя пользоваетля: </strong>{order.username} <br/>
+            </Description>
+            <Date>
+                {moment(object.date).format('DD MMMM  в HH:mm')}
+            </Date>
         </div>
-    );
-};
+    )
+})
 
-export default OrderCard;
+export default OrderCard

@@ -9,10 +9,6 @@ import MyButton from "../../UI/MyButton/MyButton";
 const CardCss = styled.div`
   display: inline-block;
   width: 25%;
-<<<<<<< HEAD
-=======
-
->>>>>>> c8b62bc75b904543e2d22533d581b41d98a42242
   @media (max-width: 1000px) {
     width: 33.3333%;
   }
@@ -76,20 +72,6 @@ const Header = styled.div`
   -webkit-box-orient: vertical; 
 
 `
-const Description = styled.div`
-  font-family: PT Sans, Arial, sans-serif;
-  font-size: 13px;
-  color: #2f3235;
-  margin-top: 8px;
-  height: auto;
-  position: relative;
-
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-`
-
 
 const Span = styled.span`
   text-align: left;
@@ -163,7 +145,6 @@ const Date = styled.div`
   box-sizing: border-box;
 `
 
-
 const CalendarIcon = styled(GoCalendar)`
   width: 20px;
   height: 20px;
@@ -175,7 +156,7 @@ const Button = styled(MyButton)`
   height: 38px;
 `
 
-const Card = ({exursion}) => {
+const Card = (props) => {
     const router = useHistory()
     const ExursionFullInfo = (ex) => router.push({
         pathname: `/PagesEx`,
@@ -192,31 +173,28 @@ const Card = ({exursion}) => {
     })
     return (
         <CardCss>
-            <Wrapper key={exursion.id}>
+            <Wrapper key={props.ex.id}>
                 <div>
-                    <Preview imgurl={process.env.REACT_APP_API_URL + exursion.img}/>
+                    <Preview imgurl={process.env.REACT_APP_API_URL + props.ex.img}/>
                     <Content>
                         <Header
-                            onClick={() => ExursionFullInfo(exursion)}
+                            onClick={() => ExursionFullInfo(props.ex)}
                         >
-                            <Span>{exursion.name}</Span>
+                            <Span>{props.ex.name}</Span>
                         </Header>
-                        {/*<Description>*/}
-                        {/*    {exursion.description}*/}
-                        {/*</Description>*/}
                     </Content>
                 </div>
                 <div>
                     <WrapperDate>
                         <ContainerDate>
                             <Date>
-                                <CalendarIcon/> {moment(exursion.date).format('D MMMM в HH:mm')}
+                                <CalendarIcon/> {moment(props.ex.date).format('D MMMM в HH:mm')}
                             </Date>
                         </ContainerDate>
                     </WrapperDate>
                     <WrapperButton>
                         <Button
-                            onClick={() => ExursionFullInfo(exursion)}
+                            onClick={() => ExursionFullInfo(props.ex)}
                         >
                             Подробнее
                         </Button>

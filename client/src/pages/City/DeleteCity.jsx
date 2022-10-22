@@ -17,16 +17,19 @@ const Form = styled.form`
 const DeleteCity = observer( () => {
     const {cityStore} = useContext(Context)
     const history = useHistory()
+    const [cityId, setcityId] = useState(cityStore.ArrayCity[0] ? cityStore.ArrayCity[0].id : 0)
+
     useEffect(() => {
         fetchCity().then(data => cityStore.setCity(data))
     }, [])
-    const [cityId, setcityId] = useState(cityStore.ArrayCity[0] ? cityStore.ArrayCity[0].id : 0)
-    const delExur = (e) => {
+
+    const delExur = async (e) => {
         e.preventDefault()
         deleteExursion(cityId)
         alert("Город успешно удален")
         history.push('/CityList')
     }
+
     return (
         <div>
             <Form>

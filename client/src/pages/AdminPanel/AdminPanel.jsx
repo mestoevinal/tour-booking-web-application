@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import {observer} from "mobx-react-lite";
 import CreateEx from "../Exursion/CreateExursion";
 import CreateCity from "../City/CreateCity";
@@ -29,8 +29,6 @@ const AdminPanel = observer(() => {
             <CreateEx/>
             <CreateCity/>
             <DeleteCity/>
-
-
         </AdminStyle>
     );
 });
